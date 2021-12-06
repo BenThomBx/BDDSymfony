@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ArticleRepository;
 
 
 /**
  * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=Articlerepository::class)
  */
 
 class Article
@@ -16,7 +18,7 @@ class Article
 #- dans cette table, vous devez avoir une colonne id (int, auto increment, clé primaire) et une colonne title
 # (varchar 255)
 #- servez vous de mon code sur github pour faire ça (sans copier coller) - résultat migrations/Version2021...150 vérifier
-# s'il n'y a pas de migration en attente avec migrate. 
+# s'il n'y a pas de migration en attente avec migrate.
 #EXO 2:
 # - créez trois nouvelles colonnes dans votre table book : author, publishedAt et nbPages (trouvez les bons types pour
 # ces colonnes) Résultat: migrations/Version2021...125

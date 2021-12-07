@@ -1,0 +1,38 @@
+/*EXO :
+- quand vous avez terminé : stylisez avec du css votre page article, en créant un header possédant un menu centré + une
+ couleur de fond et un footer avec une image et une couleur de fond et les éléments de l'article centré / justifié
+ h1 {
+  font-size: 60px;
+  text-align: center;
+}
+
+p, li {
+  font-size: 16px;
+  line-height: 2;
+  letter-spacing: 1px;
+}*/
+
+.titre {
+    text-align: center;
+}
+{
+    display: flex;
+    justify-content: center;
+}
+.image {
+    padding: 50px;
+
+}
+
+img {
+    width: 200px;
+}
+
+.content {
+    padding : 25px;
+    font-size: 4rem;
+
+}
+.troupe {
+    background-size: cover;
+}

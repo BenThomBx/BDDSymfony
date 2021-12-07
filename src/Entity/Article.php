@@ -2,12 +2,19 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+
 use App\Repository\ArticleRepository;
+use ContainerEFxAJ7P\getDoctrineMigrations_UpToDateCommandService;
+use ContainerJeCuKVn\getDoctrine_Orm_DefaultListeners_AttachEntityListenersService;
+use Doctrine\ORM\Mapping as ORM;
+use mysql_xdevapi\DatabaseObject;
+use mysql_xdevapi\TableUpdate;
+use phpDocumentor\Reflection\Types\Integer;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Config\TwigExtra\StringConfig;
 
 
 /**
- * @ORM\Entity()
  * @ORM\Entity(repositoryClass=Articlerepository::class)
  */
 
@@ -54,4 +61,80 @@ class Article
      */
     private $publishedAt;
 
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getPages(): ?Integer
+    {
+        return $this->nb_pages;
+    }
+
+    public function setPages(): self
+    {
+        $this->nb_pages = $nb_pages;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNbPages()
+    {
+        return $this->nb_pages;
+    }
+
+    /**
+     * @param mixed $nb_pages
+     */
+    public function setNbPages($nb_pages): void
+    {
+        $this->nb_pages = $nb_pages;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublishedAt()
+    {
+        return $this->publishedAt;
+    }
+
+    /**
+     * @param mixed $publishedAt
+     */
+    public function setPublishedAt($publishedAt): void
+    {
+        $this->publishedAt = $publishedAt;
+    }
+
+
 }
+

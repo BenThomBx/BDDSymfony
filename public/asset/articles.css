@@ -1,0 +1,37 @@
+
+.article {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    grid-gap: 7rem;
+    margin-inline: 7rem;
+}
+
+.card {
+    display: grid;
+    grid-template-rows: max-content 450px 1fr;
+}
+.card header {
+    min-width: 45%;
+    background-color: darkgreen;
+    color: #FFFFFF;
+    padding: 10px;
+    text-align: center;
+    max-height: 60px;
+}
+
+.card img {
+    object-fit: contain;
+    width: 100%;
+    max-height: 450px;
+    background-color: darkslategrey;
+}
+.card p {
+    text-align: justify;
+    font-size: larger;
+
+}
+.card a {
+    padding-bottom: 8rem;
+}
+
+

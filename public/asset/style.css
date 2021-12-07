@@ -1,0 +1,44 @@
+#navbar {
+    list-style: none;
+    text-align: center;
+
+
+}
+#navbar li {
+    display: inline;
+    margin-right: 1px;
+}
+#navbar li a {
+    display: block;
+    background:rgb(136,19,35) ;
+    color: #fff;
+    line-height: 1.5em;
+    text-align: center;
+
+
+}
+
+h3 {
+    text-align: center;
+}
+
+
+
+header h1 {
+    text-align: center;
+    font-size: xxx-large;
+    margin-bottom: 80px;
+    text-shadow: 4px 3px 0 #fff, 9px 8px 0 rgba(0,0,0,0.15);
+}
+
+footer {
+    display: flex;
+    min-height: 420px;
+    background-image: url("https://static1.purepeople.com/articles/8/42/78/68/@/6152123-cesar-d-anniversaire-pour-le-splendide-opengraph_1200-2.jpg");
+    background-repeat: repeat-x;
+    margin-top: 100px;
+    object-fit: cover;
+}
+
+.imgProfile {
+    padding: 15rem;

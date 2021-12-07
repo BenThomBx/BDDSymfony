@@ -3,7 +3,7 @@
 namespace App\Controller;
 
     use App\Repository\AuthorRepository;
-    use App\Repository\ArticleRepository;
+    use App\Repository\BookRepository;
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\Routing\Annotation\Route;
 
@@ -27,7 +27,7 @@ class PageController extends AbstractController
     // et je passe en parametres de la méthode de controleur
     // le nom de la classe "BookRepository" et une variables
     // dans laquelle je veux que symfony m'instancie la classe
-    public function books(ArticleRepository $articleRepository)
+    public function books(BookRepository $articleRepository)
     {
         // j'utilise la méthode findAll de la classe BookRepository
         // pour récupérer tous les livres de la table book
@@ -37,26 +37,21 @@ class PageController extends AbstractController
     }
 
     /**
-     * @Route ("/book/{id}", name="book")
-     */
-    public function book($id, ArticleRepository $articleRepository)
-    {
-        $book = $articleRepository->find($id);
-
-        return $this->render("book.html.twig", ['book' => $book]);
-    }
-
-    /**
      * @Route ("/authors", name="authors")
      */
-
-    public function authors(AuthorRepository $authorRepository)
+    // pour instancier la classe BookRepository
+    // j'utilise l'autowire de Symfony
+    // et je passe en parametres de la méthode de controleur
+    // le nom de la classe "BookRepository" et une variables
+    // dans laquelle je veux que symfony m'instancie la classe
+    public function authors(AuthorRepository  $authorRepository)
     {
+        // j'utilise la méthode findAll de la classe BookRepository
+        // pour récupérer tous les livres de la table book
         $authors = $authorRepository->findAll();
 
         return $this->render("authors.html.twig", ['authors' => $authors]);
     }
-
 
 }
 

@@ -3,22 +3,14 @@
 namespace App\Entity;
 
 
-use App\Repository\ArticleRepository;
-use ContainerEFxAJ7P\getDoctrineMigrations_UpToDateCommandService;
-use ContainerJeCuKVn\getDoctrine_Orm_DefaultListeners_AttachEntityListenersService;
+use App\Repository\BookRepository;
 use Doctrine\ORM\Mapping as ORM;
-use mysql_xdevapi\DatabaseObject;
-use mysql_xdevapi\TableUpdate;
-use phpDocumentor\Reflection\Types\Integer;
-use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Config\TwigExtra\StringConfig;
-
 
 /**
- * @ORM\Entity(repositoryClass=Articlerepository::class)
+ * @ORM\Entity(repositoryClass=BookRepository::class)
  */
 
-class Article
+class Book
 
 #EXO 1:
 #- créez une table article dans votre BDD en utilisant une entité
@@ -91,17 +83,6 @@ class Article
         return $this;
     }
 
-    public function getPages(): ?Integer
-    {
-        return $this->nb_pages;
-    }
-
-    public function setPages(): self
-    {
-        $this->nb_pages = $nb_pages;
-
-        return $this;
-    }
 
     /**
      * @return mixed

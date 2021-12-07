@@ -9,12 +9,11 @@
 
 
         <div class="card-text">
-                <h2>{{ author.fisrtname }}</h2>
-                <h2>{{ author.lastname }}</h2>
-                <h3>{{ author.deathDate | date('d/m/y')}}</h3>
+            <h2>{{ author.fisrtname }}</h2>
+            <h2>{{ author.lastname }}</h2>
+            <h3>{{ author.deathDate | date('d/m/y')}}</h3>
         </div>
         <a class="link" href="{{ path('author', {"id": author.id}) }}">En savoir plus</a>
 
     </article>
 {% endblock main%}
-

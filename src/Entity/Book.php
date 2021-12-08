@@ -5,6 +5,7 @@ namespace App\Entity;
 
 use App\Repository\BookRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @ORM\Entity(repositoryClass=BookRepository::class)
@@ -85,15 +86,15 @@ class Book
 
 
     /**
-     * @return mixed
+     * @return mixed $nb_pages
      */
-    public function getNbPages()
+    public function getNbPages(): ?int
     {
         return $this->nb_pages;
     }
 
     /**
-     * @param mixed $nb_pages
+     * @param mixed
      */
     public function setNbPages($nb_pages): void
     {

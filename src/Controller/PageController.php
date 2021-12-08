@@ -27,11 +27,11 @@ class PageController extends AbstractController
     // et je passe en parametres de la méthode de controleur
     // le nom de la classe "BookRepository" et une variables
     // dans laquelle je veux que symfony m'instancie la classe
-    public function books(BookRepository $articleRepository)
+    public function books(BookRepository $bookRepository)
     {
         // j'utilise la méthode findAll de la classe BookRepository
         // pour récupérer tous les livres de la table book
-        $books = $articleRepository->findAll();
+        $books = $bookRepository->findAll();
 
         return $this->render("books.html.twig", ['books' => $books]);
     }
@@ -39,11 +39,7 @@ class PageController extends AbstractController
     /**
      * @Route ("/authors", name="authors")
      */
-    // pour instancier la classe BookRepository
-    // j'utilise l'autowire de Symfony
-    // et je passe en parametres de la méthode de controleur
-    // le nom de la classe "BookRepository" et une variables
-    // dans laquelle je veux que symfony m'instancie la classe
+
     public function authors(AuthorRepository  $authorRepository)
     {
         // j'utilise la méthode findAll de la classe BookRepository
@@ -52,6 +48,7 @@ class PageController extends AbstractController
 
         return $this->render("authors.html.twig", ['authors' => $authors]);
     }
+
 
 }
 

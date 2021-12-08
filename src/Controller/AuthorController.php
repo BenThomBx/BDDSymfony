@@ -4,14 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Author;
 use App\Repository\AuthorRepository;
+use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AuthorController extends AbstractController
 {
-
-
 
     /**
     * EXO :dans vos pages qui créées des livres et des auteurs, utilisez l'EntityManager pour enregistrer votre livre et
@@ -43,6 +42,50 @@ class AuthorController extends AbstractController
         return $this->render('author_create.html.twig');
 
     }
+    /**
+     * @Route("/author/update/{id}", name="author_update")
+     */
+
+    public function updateAuthor($id, AuthorRepository $authorRepository, EntityManagerInterface $entityManager)
+    {
+        $author= $authorRepository->find($id);
+        $author->setDeathDate("07122021");
+
+        $entityManager->persist($id);
+        $entityManager->flush();
+
+        $this->render(author_update.html.twig);
+    }
+
+    // COMMENTAIRE : pour effacer une entrée de la BDD (1 id et toutes les propriétés correspondantes) on crée une
+    // méthode, que j'appelle removeAuthor.
+    // 1- Pour isoler la fiche auteur ciblée on l'identifie par son id grâce une
+    // wildcard dans l'url : la route indique ainsi le chemin vers la méthode remove de la BDD author avec une id
+    // et on identifie XXXX par name.
+    // 2- la méthode removeAuthor contient les paramètres suivants : $id (de l'url), la classe AuthorRepository qui
+    // instancie la variable $authorRepository par autowire qui donne accès aux données de la BDD, de même pour la
+    // classe EntityManagerInterface qui permettra de renvoyer la modification vers la BDD via Doctrine.
+    // 3- la variable author vaut alors les valeurs de $id dans la classe AuthorRepository grâce à la méthode find.
+    // 4- la classe EntityManger permet alors d'effacer $author pour $id par la méthode remove et valide la modification
+    // par la méthode flush.
+    // 5- on retourne dans le navigateur une page qui confirme l'action (effacer) pour l'utilisateur.
+    /**
+     * @Route("/author/remove/{id}", "name=remove_author")
+     */
+
+    public function removeAuthor($id, AuthorRepository $authorRepository, EntityManagerInterface $entityManager)
+    {
+
+        $author = $authorRepository->find($id);
+        // de nouveau des problèmes d'accès à setTitle "Call to a member function setTitle() on null" résolu la BDD
+        //n'avait plus qu'une seule ligne à ce moment-là//
+
+        $entityManager->remove($author);
+        $entityManager->flush();
+
+        return $this->render('author_remove.html.twig');
+    }
+
 
 
     /**

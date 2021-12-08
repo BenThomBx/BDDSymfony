@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AuthorRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,6 +45,22 @@ class Author
      */
     private $deathDate;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Book::class, mappedBy="author")
+     */
+    private $books;
+    //  *l'entité Author : l'ORM OnetoMany ci-dessus cible l'entité Book et signifie la correspondance entre les deu
+    //   tables, permettant à un auteur d'aller chercher des livres dans book. getters et setters sont aussi créés
+    //   par Symfony.
+    // Ci-dessous la méthode construct créée par Symfony, permet d'intégrer les différents livres qui peuvent être
+    // reliés à un auteur. Sous forme de tableau les données peuvent être accessibles (CRUD) indépendemment les
+    // unes des autres.
+
+    public function __construct()
+    {
+        $this->books = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -80,6 +98,36 @@ class Author
     public function setDeathDate(?\DateTimeInterface $deathDate): self
     {
         $this->deathDate = $deathDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Book[]
+     */
+    public function getBooks(): Collection
+    {
+        return $this->books;
+    }
+
+    public function addBook(Book $book): self
+    {
+        if (!$this->books->contains($book)) {
+            $this->books[] = $book;
+            $book->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBook(Book $book): self
+    {
+        if ($this->books->removeElement($book)) {
+            // set the owning side to null (unless already changed)
+            if ($book->getAuthor() === $this) {
+                $book->setAuthor(null);
+            }
+        }
 
         return $this;
     }

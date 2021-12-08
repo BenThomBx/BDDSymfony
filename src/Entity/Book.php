@@ -50,15 +50,34 @@ class Book
      */
     private $publishedAt;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Author::class)
-     */
-    private $author;
+    //EXO bis:
+    //- supprimez la relation entre les book et les auteurs (supprimez la propriété author dans l'entité book + les getters
+    //  et setters)
+            // /**
+            //* @ORM\ManyToOne(targetEntity=Author::class)
+            //*/
+            //private $author;
+
+
 
     /**
      * @ORM\ManyToOne(targetEntity=Genre::class)
      */
     private $genre;
+
+
+    //COMMENTAIRE : l'objectif est de créer une jonction entre les tables Book et Author par la propriété author.
+    // La création de la propriété author via le Terminal permet de créer dans :
+    //  *l'entité Book : l'ORM ci-dessous qui cible l'entité Author et crée le lien inversé de Author vers Book par les
+    //   clés étrangères générée lors de la jonction entre les 2 tables. le ManytoOne permettant de relier plusieurs
+    //   livres pour un auteur. getter et setter sont aussi créés par Symfony SUITE ->VOIR ENTITE AUTHOR
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Author::class, inversedBy="books")
+     */
+    private $author;
 
 
     public function getId(): ?int
@@ -126,29 +145,47 @@ class Book
     // 3- dans le terminal : dans l'entité Book, on crée la propriété Author avec le type ManytoOne vers Author, et
     // on migre ces modifications.
 
-    public function getAuthor(): ?Author
-    {
-        return $this->author;
-    }
+            // public function getAuthor(): ?Author
+            //{
+            //return $this->author;
+            //}
+            //public function setAuthor(?Author $author): self
+            //{
+            //$this->author = $author;
+            //return $this;
+            //}
+            public function getGenre(): ?Genre
+            {
+            return $this->genre;
+            }
+            public function setGenre(?Genre $genre): self
+            {
+            $this->genre = $genre;
+            return $this;
+            }
+//EXO bis:
+//- supprimez la relation entre les book et les auteurs (supprimez la propriété author dans l'entité book + les getters
+//  et setters)
+//- n'oubliez pas de faire votre migration + le migrate
+//- recréez cette propriété en utilisant le terminal (make:entity) mais en précisant que vous voulez pouvoir aussi
+//  récupérer les books depuis un auteur quand la question vous est posée.
+//- afficher les books de chaque auteur dans twig
 
-    public function setAuthor(?Author $author): self
-    {
-        $this->author = $author;
+public function getAuthor(): ?Author
+{
+    return $this->author;
+}
 
-        return $this;
-    }
+public function setAuthor(?Author $author): self
+{
+    $this->author = $author;
 
-    public function getGenre(): ?Genre
-    {
-        return $this->genre;
-    }
+    return $this;
+}
 
-    public function setGenre(?Genre $genre): self
-    {
-        $this->genre = $genre;
 
-        return $this;
-    }
+
+
 
 
 }

@@ -55,6 +55,11 @@ class Book
      */
     private $author;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Genre::class)
+     */
+    private $genre;
+
 
     public function getId(): ?int
     {
@@ -110,11 +115,14 @@ class Book
     //- soit à la main, soit en ligne de commandes, créez une nouvelle propriété author qui sera un ManyToOne vers
     // l'entité (et donc la table) Author
     // COMMENTAIRE : créer un join entre tables
+    // ATTENTION!  expliquer non pas ce que l'on fait mais ce qui se passe dans le programme
     // 1- supprimer la colonne author dans la classe Book afin de la remplacer par une clé étrangère issue de la table
     // Author. POur cela on enlève les getters et les setters d'author dans Book.php et on réalise la migration dans
     // le terminal.
+
     // 2- 2 méthodes pour créer le join soir manuellement dans phpstorm (avec migration dans le terminal) ou bien par
     // le formulaire du terminal par "create entity".
+
     // 3- dans le terminal : dans l'entité Book, on crée la propriété Author avec le type ManytoOne vers Author, et
     // on migre ces modifications.
 
@@ -126,6 +134,18 @@ class Book
     public function setAuthor(?Author $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getGenre(): ?Genre
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(?Genre $genre): self
+    {
+        $this->genre = $genre;
 
         return $this;
     }

@@ -8,6 +8,7 @@ use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -84,13 +85,32 @@ class AdminBookController extends AbstractController
 //- COMMENTEZ : dans la méthode createBook on instancie la variable $book (nécessaire ici car Book est une entity)
 // on appelle la méthode form de l'abstract contrôleur et on lui passe les paramètres suivants : le nom de la classe
 // du formulaire et l'instance attendue de $book.
+
+// EXO 09/12/21 14:00
+// Utilisez votre formulaire pour enregistrer les données de l'utilisateur dans la table book
+    // COMMENTAIRE : a) pour récupérer selon la méthode POST les données saisies dans le formulaire par l'utilisateur
+    // utiliser la classe Request en paramètre de la méthode createBook et instancier par autowire la variable
+    // $request. b) les données saisies sont associées aux colonnes de la BDD du gabarit de formulaire par la
+    // méthode handleRequest. c) vérification de la qualité des données : pour vérifier qu'elles ne sont pas nulles on
+    // utilise la méthode isSubmitted (* voir BookType) et pour vérifier qu'elles sont conformes aux valeurs attendues on utilise la
+    // méthode isValid (intégrité et sécurité). d) Dans createBook on ajoute l'EntityManagerInterface pour collecter
+    // (persist) et envoyer (flush)les nouvelles valeurs de $book vers la BDD par l'entité Book.
+
+
     /**
      * @Route("admin/book/create", name="admin_book_create")
      */
-    public function createBook()
+    public function createBook(Request $request, EntityManagerInterface $entityManager)
     {
         $book = new Book();
         $bookForm = $this->createForm(BookType::class, $book);
+        $bookForm->handleRequest($request);
+
+        if ($bookForm->isSubmitted() && $bookForm->isValid())
+            {
+                $entityManager->persist($book);
+                $entityManager->flush();
+            }
 
         return $this->render("admin/book_create.html.twig",[
         'bookForm'=> $bookForm->createView()]);

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Form\BookType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class BookController extends AbstractController
+class AdminBookController extends AbstractController
 
 {
 
@@ -28,20 +29,23 @@ class BookController extends AbstractController
          //en insérant la classe EntityManager dans les paramètres de la méthode createBook, Symfony instancie cette
          //classe automatiquement par le système d'autowire.
 
-    /**
-     * @Route("admin/book/create", name="book_create")
-     */
-    public function createBook(EntityManagerInterface $entityManager)
-    {
 
-        $book = new Book();
-        $book->setTitle( "Win" );
-        $book->setAuthor("Harlan Coben");
-        $book->setNbPages("375 ");
-        $book->setPublishedAt(new \DateTime('NOW'));
 
-        $entityManager->persist($book);
-        $entityManager->flush();
+        // /**
+        //* @Route("admin/book/create", name="admin_book_create")
+        //*/
+
+        //public function createBook(EntityManagerInterface $entityManager)
+        //{
+
+        //$book = new Book();
+        //$book->setTitle( "Win" );
+        //$book->setAuthor("Harlan Coben");
+        //$book->setNbPages("375 ");
+        //$book->setPublishedAt(new \DateTime('NOW'));
+
+        //$entityManager->persist($book);
+        //$entityManager->flush();
 
         /** COMMENTAIRE l'enregistrement dans la BDD se fera en plusieurs étapes: persist permet de collecter les
          * nouvelles données et flush de les envoyer vers la BDD.
@@ -50,8 +54,49 @@ class BookController extends AbstractController
        /**
         * dump($book);die;
         */
-        return $this->render('book_create.html.twig');
+        //return $this->render('admin/book_create.html.twig');
+    //}
+
+// EXO :09/12/21 11:50
+//- En utilisant la ligne de commande "php bin/console make:form", créez un gabarit de formulaire pour l'entité Book:
+// Terminal :
+//5b90734..297b8f5  master -> master
+//┌─(/Applications/MAMP/htdocs/u6constructor)────────────────────────────────(benedicte@MacBook-Air-de-Benedicte:s000)─┐
+//└─(10:12:54 on master)──> php bin/console make:form                                                    ──(Jeu,déc09)─┘
+
+//The name of the form class (e.g. DeliciousPopsicleType):
+//> BookType
+
+//The name of Entity or fully qualified model class name that the new form will be bound to (empty for none):
+//> Book
+
+//created: src/Form/BookType.php
+
+//Success!
+
+//- Dans votre contrôleur de création de book, supprimez le code existant et récupérez votre gabarit de formulaire avec
+// la méthode $this-createForm(). Cette méthode prend en premier paramètre la classe du gabarit de formulaire et en
+// second parametre une instance de l'entité Book
+//- Envoyez la vue de ce formulaire à votre fichier twig et affichez le dans votre twig avec la fonction form
+// Attention, vu qu'on a déplacé la route d'affichage d'un article par son id et qu'elle rentre en conflit avec le create,
+// déplacez la route du create au dessus de celle de l'affichage d'un article, ou alors utilisez les requirements de la
+// route.
+//- COMMENTEZ : dans la méthode createBook on instancie la variable $book (nécessaire ici car Book est une entity)
+// on appelle la méthode form de l'abstract contrôleur et on lui passe les paramètres suivants : le nom de la classe
+// du formulaire et l'instance attendue de $book.
+    /**
+     * @Route("admin/book/create", name="admin_book_create")
+     */
+    public function createBook()
+    {
+        $book = new Book();
+        $bookForm = $this->createForm(BookType::class, $book);
+
+        return $this->render("admin/book_create.html.twig",[
+        'bookForm'=> $bookForm->createView()]);
+
     }
+
 
         //EXO :
         //créez les pages pages pour mettre à jour un livre et un auteur
@@ -68,7 +113,7 @@ class BookController extends AbstractController
 
 
     /**
-     * @Route("admin/book/update/{id}", name="book_update")
+     * @Route("admin/book/update/{id}", name="admin_book_update")
      */
 
     // EntityManagerInterface instancie la variable $entityManager par l'autowire idem BookRepository:
@@ -84,7 +129,7 @@ class BookController extends AbstractController
         $entityManager->persist($book);
         $entityManager->flush();
 
-        return $this->render('book_update.html.twig');
+        return $this->render('admin/book_update.html.twig');
     }
 
 
@@ -118,7 +163,7 @@ class BookController extends AbstractController
 
 
     /**
-     * @Route("admin/book/remove/{id}", name="book_remove")
+     * @Route("admin/book/remove/{id}", name="admin_book_remove")
      */
 
     public function removeBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager)
@@ -131,18 +176,18 @@ class BookController extends AbstractController
         $entityManager->remove($book);
         $entityManager->flush();
 
-        return $this->redirectToRoute('books');
+        return $this->redirectToRoute('admin_books');
 
     }
 
     /**
-     * @Route ("admin/book/{id}", name="book")
+     * @Route ("admin/book/{id}", name="admin_book")
      */
     public function book($id, BookRepository $bookRepository)
     {
         $book = $bookRepository->find($id);
 
-        return $this->render("book.html.twig", ['book' => $book]);
+        return $this->render("admin/book.html.twig", ['book' => $book]);
     }
 
     //09.12.21 10:10

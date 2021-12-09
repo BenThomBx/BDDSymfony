@@ -20,7 +20,7 @@ class PageController extends AbstractController
     }
 
     /**
-     * @Route ("/books", name="books")
+     * @Route ("admin/books", name="admin_books")
      */
     // pour instancier la classe BookRepository
     // j'utilise l'autowire de Symfony
@@ -33,7 +33,7 @@ class PageController extends AbstractController
         // pour récupérer tous les livres de la table book
         $books = $bookRepository->findAll();
 
-        return $this->render("books.html.twig", ['books' => $books]);
+        return $this->render("admin/books.html.twig", ['books' => $books]);
     }
 
     /**

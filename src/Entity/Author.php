@@ -49,6 +49,8 @@ class Author
      * @ORM\OneToMany(targetEntity=Book::class, mappedBy="author")
      */
     private $books;
+
+    // COMMENTAIRE
     //  *l'entité Author : l'ORM OnetoMany ci-dessus cible l'entité Book et signifie la correspondance entre les deu
     //   tables, permettant à un auteur d'aller chercher des livres dans book. getters et setters sont aussi créés
     //   par Symfony.

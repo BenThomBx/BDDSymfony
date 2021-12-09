@@ -10,7 +10,7 @@
                 <h2>{{ author.fisrtname }}</h2>
                 <h2>{{ author.lastname }}</h2>
                 <h3>{{ author.deathDate | date('d/m/y')}}</h3>
-            
+
             {#COMMENTAIRE #}
     {# boucle permettant d'afficher tous les livres qui sont reliés par une même clé étrangère à un même auteur #}
              {% for books in author.books %}

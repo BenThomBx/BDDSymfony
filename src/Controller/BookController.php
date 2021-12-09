@@ -88,9 +88,7 @@ class BookController extends AbstractController
     }
 
 
-    /**
-     * @Route("/book/remove/{id}", name="book_remove")
-     */
+
 
     // EntityManagerInterface instancie la variable $entityManager par l'autowire idem BookRepository:
 
@@ -106,6 +104,23 @@ class BookController extends AbstractController
     // par la méthode flush.
     // 5- on retourne dans le navigateur une page qui confirme l'action (effacer) pour l'utilisateur.
 
+
+
+//EXO 9.12.21 9/30:
+//- Dans la liste des livres, ajoutez un lien vers la route de suppression d'un livre (qui existe déjà)
+//- Dans le controleur qui gère la suppression, au lieu de retourner un twig qui valide la suppression, faites une
+// redirection vers la liste des livres
+
+//COMMENTAIRE : 1- dans le fichier books.html.twig, j'ajoute le lien <a class="link" href="{{ path('book_remove',
+// {"id": book.id}) }}">Supprimer le livre</a> à tous les livres permettant de supprimer chaque livre en
+// utilisant la wildcard du livre concerné , grâce à la methode remove-book du BookController.
+// 2 - ci-dessous on retourne une redirection vers la liste des livres.
+
+
+    /**
+     * @Route("/book/remove/{id}", name="book_remove")
+     */
+
     public function removeBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager)
     {
 
@@ -116,7 +131,8 @@ class BookController extends AbstractController
         $entityManager->remove($book);
         $entityManager->flush();
 
-        return $this->render('book_remove.html.twig');
+        return $this->redirectToRoute('books');
+
     }
 
     /**

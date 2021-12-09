@@ -136,20 +136,49 @@ class AdminBookController extends AbstractController
      * @Route("admin/book/update/{id}", name="admin_book_update")
      */
 
-    // EntityManagerInterface instancie la variable $entityManager par l'autowire idem BookRepository:
-    public function updateBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager)
-    {
+        // EntityManagerInterface instancie la variable $entityManager par l'autowire idem BookRepository:
+        //public function updateBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager)
+        //{
 
-        $book = $bookRepository->find($id);
+        //   $book = $bookRepository->find($id);
         // de nouveau des problèmes d'accès à setTitle "Call to a member function setTitle() on null" résolu la BDD
         //n'avait plus qu'une seule ligne à ce moment-là//
-        $book->setTitle( "Les nouveaux thanataunotes" );
+        // $book->setTitle( "Les nouveaux thanataunotes" );
 
 
-        $entityManager->persist($book);
-        $entityManager->flush();
+        //  $entityManager->persist($book);
+        //  $entityManager->flush();
 
-        return $this->render('admin/book_update.html.twig');
+        //:  return $this->render('admin/book_update.html.twig');
+        // }
+
+    //EXO 09/12/21 15:45
+    //-a) Dans le controleur qui met à jour un livre, utilisez un formulaire pour faire la mise à jour. Le code sera le
+    // même que pour la création, sauf pour la création de la variable $book
+    //- b)faire un lien dans la liste des livres pour mettre à jour le livre
+    //- c) dans la même page ajouter un lien pour créer un livre
+
+    // COMMENTAIRE : 09/12/21 15:47
+    // a) même démarche que pour la création mais au lieu d'instancier une nouvelle valeur (un nouvel objet?)de $book on va
+    // chercher grâce à la classe BookRepository et une wildcard les données présentes en bases de données pour la valeur
+    // courante de l'id.
+    // b) & c) voir books.html.twig (templates/admin/books.html.twig)
+
+
+    public function updateBook($id, Request $request, BookRepository $bookRepository, EntityManagerInterface $entityManager)
+    {
+        $book = $bookRepository->find($id);
+        $bookForm = $this->createForm(BookType::class, $book);
+        $bookForm->handleRequest($request);
+
+        if ($bookForm->isSubmitted() && $bookForm->isValid())
+        {
+            $entityManager->persist($book);
+            $entityManager->flush();
+        }
+
+        return $this->render("admin/book_update.html.twig",[
+            'bookForm'=> $bookForm->createView()]);
     }
 
 

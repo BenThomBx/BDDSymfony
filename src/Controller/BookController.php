@@ -29,7 +29,7 @@ class BookController extends AbstractController
          //classe automatiquement par le système d'autowire.
 
     /**
-     * @Route("/book/create", name="book_create")
+     * @Route("admin/book/create", name="book_create")
      */
     public function createBook(EntityManagerInterface $entityManager)
     {
@@ -68,7 +68,7 @@ class BookController extends AbstractController
 
 
     /**
-     * @Route("/book/update/{id}", name="book_update")
+     * @Route("admin/book/update/{id}", name="book_update")
      */
 
     // EntityManagerInterface instancie la variable $entityManager par l'autowire idem BookRepository:
@@ -118,7 +118,7 @@ class BookController extends AbstractController
 
 
     /**
-     * @Route("/book/remove/{id}", name="book_remove")
+     * @Route("admin/book/remove/{id}", name="book_remove")
      */
 
     public function removeBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager)
@@ -136,7 +136,7 @@ class BookController extends AbstractController
     }
 
     /**
-     * @Route ("/book/{id}", name="book")
+     * @Route ("admin/book/{id}", name="book")
      */
     public function book($id, BookRepository $bookRepository)
     {
@@ -144,5 +144,8 @@ class BookController extends AbstractController
 
         return $this->render("book.html.twig", ['book' => $book]);
     }
+
+    //09.12.21 10:10
+    // on ajoute admin devant toutes les routes pour séparer les accès admin des accès front.
 
 }

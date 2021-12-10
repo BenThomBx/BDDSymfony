@@ -10,13 +10,13 @@ namespace App\Controller;
 class PageController extends AbstractController
 {
     /**
-     * @Route ("/", name="home")
+     * @Route ("/", name="admin_dashboard")
      */
 
     public function home()
     {
         $books = [];
-        return $this->render("home.html.twig", ['home' => $books]);
+        return $this->render("dashboard.html.twig", ['home' => $books]);
     }
 
     /**
@@ -37,7 +37,7 @@ class PageController extends AbstractController
     }
 
     /**
-     * @Route ("/authors", name="authors")
+     * @Route ("/authors", name="admin_authors")
      */
 
     public function authors(AuthorRepository  $authorRepository)
@@ -46,7 +46,7 @@ class PageController extends AbstractController
         // pour récupérer tous les livres de la table book
         $authors = $authorRepository->findAll();
 
-        return $this->render("authors.html.twig", ['authors' => $authors]);
+        return $this->render("admin/authors.html.twig", ['authors' => $authors]);
     }
 
 

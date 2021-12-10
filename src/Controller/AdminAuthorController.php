@@ -3,13 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Author;
+use App\Entity\Book;
+use App\Form\AuthorType;
+use App\Form\BookType;
 use App\Repository\AuthorRepository;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AuthorController extends AbstractController
+class AdminAuthorController extends AbstractController
 {
 
     /**
@@ -22,39 +26,54 @@ class AuthorController extends AbstractController
      * classe automatiquement par le système d'autowire).
     */
 
+
+
     /**
-     * @Route("/author/create", name="author_create")
+     * @Route("/admin/author/create", name="admin_author_create")
      */
-    public function createAuthor(EntityManagerInterface $entityManager)
+    public function createAuthor(Request $request, EntityManagerInterface $entityManager)
     {
         $author = new Author();
-        $author->setFisrtName("Bernard");
-        $author->setLastName("WERBER");
+        $authorForm = $this->createForm(AuthorType::class,$author);
+        $authorForm->handleRequest($request);
 
-        //dump($author); die;
+        if ($authorForm->isSubmitted() && $authorForm->isValid())
+        {
 
-        $entityManager->persist($author);
-        $entityManager->flush();
 
-        /** l'enregistrement dans la BDD se fera en plusieurs étapes: persist permet de collecter les nouvelles
-         * données et flush de les envoyer vers la BDD.
-         */
-        return $this->render('author_create.html.twig');
+            //dump($author); die;
+
+            $entityManager->persist($author);
+            $entityManager->flush();
+
+            /** l'enregistrement dans la BDD se fera en plusieurs étapes: persist permet de collecter les nouvelles
+             * données et flush de les envoyer vers la BDD.
+             */
+            return $this->render('admin/author_create.html.twig',['authorForm' => $authorForm->createView()]);
+
+       }
 
     }
+
+
     /**
-     * @Route("/author/update/{id}", name="author_update")
+     * @Route("/admin/author/update/{id}", name="admin_author_update")
      */
 
-    public function updateAuthor($id, AuthorRepository $authorRepository, EntityManagerInterface $entityManager)
+    public function updateAuthor($id, Request $request, AuthorRepository $authorRepository, EntityManagerInterface $entityManager)
     {
-        $author= $authorRepository->find($id);
-        $author->setDeathDate("07122021");
+        $author = $authorRepository->find($id);
+        $authorForm = $this->createForm(AuthorType::class, $author);
+        $authorForm->handleRequest($request);
 
-        $entityManager->persist($id);
-        $entityManager->flush();
+        if ($authorForm->isSubmitted() && $authorForm->isValid()) {
 
-        $this->render(author_update.html.twig);
+            $entityManager->persist($author);
+            $entityManager->flush();
+        }
+            return $this->render("admin/author_update.html.twig", ['authorForm' => $authorForm->createView()]);
+
+
     }
 
     // COMMENTAIRE : pour effacer une entrée de la BDD (1 id et toutes les propriétés correspondantes) on crée une
@@ -70,7 +89,7 @@ class AuthorController extends AbstractController
     // par la méthode flush.
     // 5- on retourne dans le navigateur une page qui confirme l'action (effacer) pour l'utilisateur.
     /**
-     * @Route("/author/remove/{id}", "name=remove_author")
+     * @Route("/admin/author/remove/{id}", name="admin_author_remove")
      */
 
     public function removeAuthor($id, AuthorRepository $authorRepository, EntityManagerInterface $entityManager)
@@ -83,19 +102,20 @@ class AuthorController extends AbstractController
         $entityManager->remove($author);
         $entityManager->flush();
 
-        return $this->render('author_remove.html.twig');
+        return $this->redirectToRoute('admin_authors');
+
     }
 
 
 
     /**
-     * @Route ("/author/{id}", name="author")
+     * @Route ("/admin/author/{id}", name="admin_author")
      */
 
     public function author($id, AuthorRepository $authorRepository)
     {
         $author = $authorRepository->find($id);
 
-        return $this->render("author.html.twig", ['author' => $author]);
+        return $this->render("admin/author.html.twig", ['author' => $author]);
     }
 }

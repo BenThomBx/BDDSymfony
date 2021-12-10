@@ -1,11 +1,14 @@
 
-{% extends "base.html.twig" %}
+{% extends "/base.html.twig" %}
 
 
 {% block main %}
-    <main>
+
+
+
+    {#  <main>
         <section class="section">
-            {% for books in home %}
+            {% for books in admin_dashboard %}
                 <div class="card">
                     <div class="card-text">
                         <h2>{{ books.title }}</h2>
@@ -18,5 +21,6 @@
             {% endfor %}
         </section>
     </main>
+    #}
 {% endblock main%}
 

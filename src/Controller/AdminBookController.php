@@ -98,7 +98,7 @@ class AdminBookController extends AbstractController
 
 
     /**
-     * @Route("admin/book/create", name="admin_book_create")
+     * @Route("/admin/book/create", name="admin_book_create")
      */
     public function createBook(Request $request, EntityManagerInterface $entityManager)
     {
@@ -133,7 +133,7 @@ class AdminBookController extends AbstractController
 
 
     /**
-     * @Route("admin/book/update/{id}", name="admin_book_update")
+     * @Route("/admin/book/update/{id}", name="admin_book_update")
      */
 
         // EntityManagerInterface instancie la variable $entityManager par l'autowire idem BookRepository:
@@ -212,7 +212,7 @@ class AdminBookController extends AbstractController
 
 
     /**
-     * @Route("admin/book/remove/{id}", name="admin_book_remove")
+     * @Route("/admin/book/remove/{id}", name="admin_book_remove")
      */
 
     public function removeBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager)
@@ -230,7 +230,7 @@ class AdminBookController extends AbstractController
     }
 
     /**
-     * @Route ("admin/book/{id}", name="admin_book")
+     * @Route ("/admin/book/{id}", name="admin_book")
      */
     public function book($id, BookRepository $bookRepository)
     {

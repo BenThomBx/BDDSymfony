@@ -1,0 +1,23 @@
+{% extends "/base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/author.css') }}">
+{% endblock stylesheets %}
+
+{% block main %}
+
+    {{ form(authorForm) }}
+    {#  <article class="author-detail">
+
+
+        <div class="card-text">
+            <h2>{{ author.fisrtName }}</h2>
+            <h2>{{ author.lastName }}</h2>
+            <h3>{{ author.deathDate | date('d/m/y')}}</h3>
+        </div>
+    #}
+
+        <a class="link" href="{{ path('admin_author', {"id": author.id}) }}">En savoir plus</a>
+
+    </article>
+{% endblock main%}

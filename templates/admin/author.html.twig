@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends "/base.html.twig" %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('assets/css/author.css') }}">
@@ -7,7 +7,7 @@
 {% block main %}
     <article class="author-detail">
         <div class="card-text">
-                <h2>{{ author.fisrtname }}</h2>
+                <h2>{{ author.fisrtName }}</h2>
                 <h2>{{ author.lastname }}</h2>
                 <h3>{{ author.deathDate | date('d/m/y')}}</h3>
 

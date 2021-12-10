@@ -37,8 +37,7 @@ class AdminAuthorController extends AbstractController
         $authorForm = $this->createForm(AuthorType::class,$author);
         $authorForm->handleRequest($request);
 
-        if ($authorForm->isSubmitted() && $authorForm->isValid())
-        {
+        if ($authorForm->isSubmitted() && $authorForm->isValid()) {
 
 
             //dump($author); die;
@@ -49,9 +48,10 @@ class AdminAuthorController extends AbstractController
             /** l'enregistrement dans la BDD se fera en plusieurs étapes: persist permet de collecter les nouvelles
              * données et flush de les envoyer vers la BDD.
              */
+        }
             return $this->render('admin/author_create.html.twig',['authorForm' => $authorForm->createView()]);
 
-       }
+
 
     }
 

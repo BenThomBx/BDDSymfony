@@ -4,6 +4,7 @@
 
 {% block main %}
     <main>
+        <a class="button" href="{{ path('admin_author_create') }}">Créer une fiche auteur</a>
         <section class="section">
             {% for author in authors %}
                 <div class="card">
@@ -18,6 +19,7 @@
                     <a class="link" href="{{ path('admin_author', {"id": author.id}) }}">Consulter la fiche auteur</a><br>
                     <a class="link" href="{{ path('admin_author_remove', {"id": author.id}) }}">Supprimer la fiche auteur</a><br>
                     <a class="link" href="{{ path('admin_author_update', {"id": author.id}) }}">Modifier la fiche auteur</a>
+
                 </div>
             {% endfor %}
         </section>

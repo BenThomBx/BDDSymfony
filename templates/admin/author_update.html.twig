@@ -3,7 +3,9 @@
 {% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/authors.css') }}">{% endblock stylesheets %}
 
 {% block main %}
+   {{ form_start }}
+
    {{ form(authorForm) }}
 
-
+   {{ form_end }}
 {% endblock main%}

@@ -16,7 +16,7 @@ class PageController extends AbstractController
     public function home()
     {
         $books = [];
-        return $this->render("dashboard.html.twig", ['home' => $books]);
+        return $this->render("admin/dashboard.html.twig", ['home' => $books]);
     }
 
     /**
@@ -47,8 +47,8 @@ class PageController extends AbstractController
         $authors = $authorRepository->findAll();
 
         return $this->render("admin/authors.html.twig", ['authors' => $authors]);
-    }
 
+    }
 
 }
 

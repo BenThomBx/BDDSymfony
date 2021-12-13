@@ -43,6 +43,27 @@ class BookRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+// EXO 13/12/21 10:14:
+// Créez un moteur de recherche pour les livres avec :
+// 2 - créez une méthode searchByTitle dans le repository de Book
+// 3 - dans cette méthode, utilisez le queryBuilder pour construire votre requête SQL et récupérer les résultats
+
+
+
+    public function searchByTitle($word)
+    {
+     $queryBuilder = $this->createQueryBuilder('b');
+
+     $query = $queryBuilder->select('b')
+         ->where('b.title LIKE :word')
+         ->setParameter('word','%'.$word.'%')
+         ->getQuery();
+
+     return $query->getResult();
+    }
+
 }
 
 

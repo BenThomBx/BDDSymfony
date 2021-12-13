@@ -1,23 +1,76 @@
 {% extends "/base.html.twig" %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('assets/css/article.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/book_create.css') }}">
+
 {% endblock stylesheets %}
 
 {% block main %}
 
-    {{ form(bookForm) }}
-    {# <article class="book-detail">
-        {#        <div class="book-image">#}
-        {#            <img class="book-image" src="{{ book.image }}" title="{{ book.title }}" alt="photo de la couverture du livre">#}
-        {#        </div>#}
-       {#  <div class="card-text">
-            <h2>{{ book.title }}</h2>
-            <h3>{{ book.author }}</h3>
-            <div class="date">
-                <em>Date de publication : {{ book.publishedAt | date('d/m/y') }}</em>
-            </div>
-        </div>
+    {{ form_start(bookForm) }}
 
-    </article>#}
+    <div class="mb-3">
+        <label for="bookForm.title" class="title-label">Titre</label>
+        <input type="text" class="title"  placeholder="Oeuvre">
+        {{ form_label(bookForm.title,'Titre',{
+            'label_attr': {'class': 'labelTitle'}
+        }) }}
+    </div>
+    <div class="mb-3">
+        <label for="bookForm.nb_pages" class="nb_pages-label">Nombre de pages</label>
+        <input type="text" class="nbPages"  placeholder="0 -> 1000">
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+
+
+            {{ form_widget(bookForm.title, {
+                'attr':{'class': 'widgetTitle'}
+            }) }}
+        </div>
+        <div class="col">
+            {{ form_label(bookForm.nb_pages,'Nombre de pages',{
+                'label_attr': {'class': 'label_nb_pages'}
+            }) }}
+
+            {{ form_widget(bookForm.nb_pages, {
+                'attr':{'class': 'widget_nb_pages'}
+            }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ form_label(bookForm.publishedAt,'Date de publication',{
+                'label_attr': {'class': 'label_publishedAt'}
+            }) }}
+
+            {{ form_label(bookForm.author,'Sélectionner un auteur',{
+                'label_attr': {'class': 'label_author'}
+            }) }}
+
+
+        </div>
+        <div class="col">
+
+            {{ form_widget(bookForm.author, {
+                'attr':{'class': 'widget_author'}
+            }) }}
+
+            {{ form_widget(bookForm.publishedAt, {
+                'attr':{'class': 'widget_publishedAt'}
+            }) }}
+         </div>
+    </div>
+
+
+
+
+    {{ form_end(bookForm) }}
+
 {% endblock main %}
+
+
+
+

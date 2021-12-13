@@ -242,4 +242,36 @@ class AdminBookController extends AbstractController
     //09.12.21 10:10
     // on ajoute admin devant toutes les routes pour séparer les accès admin des accès front.
 
+
+    // EXO 13/12/21 10:14:
+    // Créez un moteur de recherche pour les livres avec :
+    // 1 - créez la méthode de contrôleur pour la recherche
+    // 4 - appelez votre méthode dans votre contrôleur (avec une valeur de recherche en dur)
+    // 5 - créez un formulaire html dans votre menu et récupérez le mot recherché dans la page de recherche pour trouver
+    // les livres reliés et les afficher
+
+
+    /**
+     * @Route("/admin/book_search", name="admin_book_search")
+     */
+
+
+    public function bookSearch (BookRepository $bookRepository, Request $request)
+        // test initial de la méthode dump("test"); die();
+        // question 4 : $word = 'fou';
+
+    {
+        $word = $request->query->get('q');
+
+        $books = $bookRepository->searchByTitle($word);
+
+        return $this->render('admin/book_search.html.twig', ['books' => $books]);
+
+    }
+
+
+
+
+
+
 }

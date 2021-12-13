@@ -251,18 +251,20 @@ class AdminBookController extends AbstractController
     // les livres reliés et les afficher
 
 
+    // COMMENTAIRE 13/12/21 Moteur de Recherche
+    // Q1 : On crée une méthode bookSearch avec BookRepository en paramètre, afin d'accéder à la BDD book pour y effectuer
+    // une recherche. -> voir BookRepository
     /**
      * @Route("/admin/book_search", name="admin_book_search")
      */
-
 
     public function bookSearch (BookRepository $bookRepository, Request $request)
         // test initial de la méthode dump("test"); die();
         // question 4 : $word = 'fou';
 
-    {
+    {   // Q5
         $word = $request->query->get('q');
-
+        // Q1
         $books = $bookRepository->searchByTitle($word);
 
         return $this->render('admin/book_search.html.twig', ['books' => $books]);

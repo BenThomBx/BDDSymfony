@@ -28,8 +28,12 @@
         </ul>
         {# EXO 13/12/21 10:14:
         // Créez un moteur de recherche pour les livres avec :
-        // 5 - créez un formulaire html dans votre menu et récupérez le mot recherché dans la page de recherche pour
-        //     trouver les livres reliés et les afficher #}
+        // 5 - créez un formulaire html dans votre menu et récupérez le mot recherché dans la page (de recherche pour
+        //     trouver les livres reliés et les afficher)
+        COMMENTAIRE 13/12/21 Moteur de Recherche
+        on crée le formulaire qui permettra d'aller récupérer l'objet de la recherche. (Input "q") et de soumettre
+        celui-ci en entête de page#}
+
         <form action="{{path("admin_book_search")}}">
             <input type="text" name="q">
             <input type="submit">

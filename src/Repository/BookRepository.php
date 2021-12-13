@@ -49,7 +49,10 @@ class BookRepository extends ServiceEntityRepository
 // Créez un moteur de recherche pour les livres avec :
 // 2 - créez une méthode searchByTitle dans le repository de Book
 // 3 - dans cette méthode, utilisez le queryBuilder pour construire votre requête SQL et récupérer les résultats
-
+// COMMENTAIRE 13/12/21 Moteur de recherche
+// Q2 & Q3: dans le BookRepository on crée la requête qui sera transcrite par doctrine pour SQL. On utilise la méthode
+// queryBuilder de la classe ServiceEntityRepository pour construire la requête vers la BDD. On recherche ici les titres
+// de livres qui contiennent l'élément demandé dans la requête. Et on retourne le résultat de la requête.
 
 
     public function searchByTitle($word)

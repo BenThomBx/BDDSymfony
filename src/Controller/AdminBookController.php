@@ -98,6 +98,16 @@ class AdminBookController extends AbstractController
 
 
     /**
+     * @Route("/admin/books", name="admin_books")
+     */
+    public function books(BookRepository $bookRepository)
+    {
+        $books = $bookRepository->findAll();
+
+        return $this->render("admin/books.html.twig",['books'=> $books]);
+    }
+
+    /**
      * @Route("/admin/book/create", name="admin_book_create")
      */
     public function createBook(Request $request, EntityManagerInterface $entityManager)
@@ -237,6 +247,7 @@ class AdminBookController extends AbstractController
         $book = $bookRepository->find($id);
 
         return $this->render("admin/book.html.twig", ['book' => $book]);
+
     }
 
     //09.12.21 10:10

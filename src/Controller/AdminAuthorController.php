@@ -16,6 +16,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminAuthorController extends AbstractController
 {
 
+
+    /**
+     * @Route("/admin/authors", name="admin_authors")
+     */
+    public function authors(AuthorRepository $authorRepository)
+    {
+        $authors = $authorRepository->findAll();
+        return $this->render('admin/authors.html.twig', [
+            'authors' => $authors
+        ]);
+    }
+
     /**
     * EXO :dans vos pages qui créées des livres et des auteurs, utilisez l'EntityManager pour enregistrer votre livre et
     * votre auteur au chargement de la page.
